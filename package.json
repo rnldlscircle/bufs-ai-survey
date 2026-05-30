@@ -1,0 +1,15 @@
+{
+  "name": "bufs-ai-survey",
+  "version": "1.0.0",
+  "description": "부산외국어대학교 AI 융합교육과정 산업체 요구조사",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

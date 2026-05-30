@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>산업체 요구조사 설문지 - 부산외국어대학교</title>
+<style>
+  :root{--primary:#1a3a6b;--primary-light:#2a5298;--accent:#c8a94a;--accent-light:#f0e0a0;--bg:#f5f7fa;--card:#ffffff;--text:#1e2633;--text-muted:#5a6577;--border:#dce3ed;--section-bg:#eef2f8;--radius:12px;--shadow:0 2px 16px rgba(26,58,107,0.08)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Malgun Gothic','맑은 고딕',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px}
+  .page-wrapper{max-width:860px;margin:0 auto;padding:32px 20px 60px}
+  .survey-header{background:linear-gradient(135deg,var(--primary) 0%,var(--primary-light) 100%);border-radius:var(--radius);padding:40px 44px;color:white;margin-bottom:24px;position:relative;overflow:hidden}
+  .survey-header::before{content:'';position:absolute;top:-40px;right:-40px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,0.06)}
+  .survey-header::after{content:'';position:absolute;bottom:-60px;left:-30px;width:180px;height:180px;border-radius:50%;background:rgba(200,169,74,0.12)}
+  .header-badge{display:inline-block;background:var(--accent);color:var(--primary);font-size:11px;font-weight:700;letter-spacing:.08em;padding:4px 12px;border-radius:20px;margin-bottom:14px}
+  .survey-header h1{font-size:22px;font-weight:800;line-height:1.4;margin-bottom:6px}
+  .survey-header .subtitle{font-size:13.5px;opacity:.82;margin-bottom:20px}
+  .header-divider{border:none;border-top:1px solid rgba(255,255,255,0.2);margin:20px 0}
+  .greeting{font-size:14px;opacity:.9;line-height:1.8}
+  .overview-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px 28px;margin-bottom:28px;box-shadow:var(--shadow)}
+  .overview-card h2{font-size:14px;font-weight:700;color:var(--primary);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+  .overview-card h2::before{content:'';display:inline-block;width:4px;height:16px;background:var(--accent);border-radius:2px}
+  .overview-grid{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;font-size:13.5px}
+  .overview-label{color:var(--primary);font-weight:600;white-space:nowrap}
+  .overview-value{color:var(--text-muted)}
+  .section{background:var(--card);border-radius:var(--radius);margin-bottom:24px;box-shadow:var(--shadow);overflow:hidden}
+  .section-header{background:linear-gradient(90deg,var(--primary) 0%,var(--primary-light) 100%);padding:16px 28px;display:flex;align-items:center;gap:12px}
+  .section-num{background:var(--accent);color:var(--primary);font-size:12px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap}
+  .section-title{color:white;font-size:16px;font-weight:700}
+  .section-body{padding:28px}
+  .question{margin-bottom:32px}
+  .question:last-child{margin-bottom:0}
+  .question-label{font-size:15px;font-weight:600;color:var(--text);margin-bottom:14px;display:flex;gap:10px}
+  .q-num{display:inline-flex;align-items:center;justify-content:center;min-width:26px;height:26px;background:var(--primary);color:white;border-radius:50%;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px}
+  .q-text{flex:1}
+  .q-note{font-size:12px;font-weight:400;color:var(--text-muted);margin-top:3px}
+  .options-list{display:flex;flex-direction:column;gap:8px;padding-left:36px}
+  .options-inline{display:flex;flex-wrap:wrap;gap:8px;padding-left:36px}
+  .opt-item{display:flex;align-items:center;gap:10px;cursor:pointer;padding:9px 14px;border-radius:8px;border:1.5px solid var(--border);transition:all .15s;font-size:14px;background:white;user-select:none}
+  .opt-item:hover{border-color:var(--primary-light);background:var(--section-bg)}
+  .opt-item input[type="radio"],.opt-item input[type="checkbox"]{accent-color:var(--primary);width:16px;height:16px;flex-shrink:0}
+  .check-badge{font-size:10px;background:var(--accent-light);color:#7a5f1a;padding:1px 7px;border-radius:10px;font-weight:600;margin-left:auto}
+  .other-input{border:none;border-bottom:1.5px solid #ccc;outline:none;font-size:13px;width:160px;font-family:inherit;padding:2px 4px;transition:border-color .15s}
+  .other-input:focus{border-bottom-color:var(--primary)}
+  .likert-table{width:calc(100% - 36px);border-collapse:collapse;margin-left:36px;font-size:13.5px}
+  .likert-table thead th{background:var(--primary);color:white;padding:10px 8px;text-align:center;font-weight:600;font-size:12.5px}
+  .likert-table thead th:first-child{text-align:left;padding-left:14px;border-radius:8px 0 0 0;width:40%}
+  .likert-table thead th:last-child{border-radius:0 8px 0 0}
+  .likert-table tbody tr:nth-child(even){background:var(--section-bg)}
+  .likert-table tbody tr:hover{background:var(--accent-light)}
+  .likert-table tbody td{padding:10px 8px;border-bottom:1px solid var(--border);text-align:center}
+  .likert-table tbody td:first-child{text-align:left;padding-left:14px;font-weight:500;color:var(--text)}
+  .likert-table tbody tr:last-child td{border-bottom:none}
+  .likert-table input[type="radio"]{accent-color:var(--primary);width:16px;height:16px;cursor:pointer}
+  .scale-header{display:flex;justify-content:space-between;padding:0 8px;margin-left:36px;margin-bottom:6px;font-size:11.5px;color:var(--text-muted)}
+  .textarea-wrap{padding-left:36px}
+  textarea{width:100%;min-height:90px;border:1.5px solid var(--border);border-radius:8px;padding:12px 14px;font-family:inherit;font-size:14px;color:var(--text);resize:vertical;transition:border-color .15s;line-height:1.6}
+  textarea:focus{outline:none;border-color:var(--primary-light);box-shadow:0 0 0 3px rgba(42,82,152,0.1)}
+  textarea::placeholder{color:#b0b8c8}
+  .q-divider{border:none;border-top:1px dashed var(--border);margin:28px 0}
+  .submit-wrap{text-align:center;padding:20px 0 0}
+  .btn-submit{background:linear-gradient(135deg,var(--primary) 0%,var(--primary-light) 100%);color:white;border:none;padding:16px 60px;border-radius:12px;font-size:17px;font-weight:700;cursor:pointer;transition:opacity .2s;font-family:inherit;letter-spacing:.04em}
+  .btn-submit:hover{opacity:.88}
+  .btn-submit:active{transform:scale(.98)}
+  .footer-card{background:linear-gradient(135deg,var(--primary) 0%,var(--primary-light) 100%);border-radius:var(--radius);padding:32px 36px;color:white;text-align:center;margin-top:28px}
+  .footer-card .thanks{font-size:20px;font-weight:800;margin-bottom:12px}
+  .footer-card p{font-size:14px;opacity:.85;line-height:1.8}
+  .footer-card .seal{display:inline-block;margin-top:20px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:8px;padding:8px 20px;font-size:13px;font-weight:600}
+  @media(max-width:600px){.survey-header{padding:28px 22px}.section-body{padding:20px 18px}.options-list,.options-inline,.textarea-wrap,.scale-header{margin-left:0;width:100%}.likert-table{font-size:12px;margin-left:0;width:100%}}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+  <div class="survey-header">
+    <div class="header-badge">부산외국어대학교 · 2025</div>
+    <h1>교육과정 개발을 위한 산업체 요구조사 설문지</h1>
+    <p class="subtitle">교육개발 전문가용 | 「다국어 AI 데이터·AI 에이전트 융합교육과정」 개발</p>
+    <hr class="header-divider">
+    <p class="greeting">
+      안녕하십니까?<br>
+      본 설문은 부산외국어대학교 첨단산업 인재양성 부트캠프 사업의 일환으로 추진되는 <strong>「다국어 AI 데이터·AI 에이전트 융합교육과정」</strong> 개발을 위하여 산업체 현장의 의견을 수렴하고자 실시하는 조사입니다.<br><br>
+      본 설문 결과는 교육과정 개발 및 개선을 위한 기초자료로만 활용되며, 응답 내용은 통계법 및 개인정보보호법에 따라 <strong>익명으로 처리</strong>됩니다.
+    </p>
+  </div>
+
+  <div class="overview-card">
+    <h2>조사 개요</h2>
+    <div class="overview-grid">
+      <span class="overview-label">조사 목적</span><span class="overview-value">AI 데이터·AI 에이전트 융합교육과정 개발을 위한 산업체 요구조사</span>
+      <span class="overview-label">조사 대상</span><span class="overview-value">교육산업 분야 종사자 및 교육개발 전문가</span>
+      <span class="overview-label">응답 방식</span><span class="overview-value">객관식 및 서술형 응답</span>
+      <span class="overview-label">주관 기관</span><span class="overview-value">부산외국어대학교</span>
+    </div>
+  </div>
+
+  <form method="POST" action="/submit">
+
+  <!-- Ⅰ. 일반현황 -->
+  <div class="section">
+    <div class="section-header"><span class="section-num">Ⅰ</span><span class="section-title">일반현황</span></div>
+    <div class="section-body">
+
+      <div class="question">
+        <div class="question-label"><span class="q-num">1</span><span class="q-text">귀하의 성별은 무엇입니까?</span></div>
+        <div class="options-inline">
+          <label class="opt-item"><input type="radio" name="gender" value="남성" required> 남성</label>
+          <label class="opt-item"><input type="radio" name="gender" value="여성"> 여성</label>
+          <label class="opt-item"><input type="radio" name="gender" value="기타"> 기타</label>
+          <label class="opt-item"><input type="radio" name="gender" value="응답하지 않음"> 응답하지 않음</label>
+        </div>
+      </div>
+      <hr class="q-divider">
+
+      <div class="question">
+        <div class="question-label"><span class="q-num">2</span><span class="q-text">귀하의 연령대는 어떻게 되십니까?</span></div>
+        <div class="options-inline">
+          <label class="opt-item"><input type="radio" name="age_group" value="20대"> 20대</label>
+          <label class="opt-item"><input type="radio" name="age_group" value="30대"> 30대</label>
+          <label class="opt-item"><input type="radio" name="age_group" value="40대"> 40대</label>
+          <label class="opt-item"><input type="radio" name="age_group" value="50대 이상"> 50대 이상</label>
+        </div>
+      </div>
+      <hr class="q-divider">
+
+      <div class="question">
+        <div class="question-label"><span class="q-num">3</span><span class="q-text">귀하의 근무 기관 유형은 무엇입니까?</span></div>
+        <div class="options-list">
+          <label class="opt-item"><input type="radio" name="org_type" value="교육 전문기업"> 교육 전문기업</label>
+          <label class="opt-item"><input type="radio" name="org_type" value="에듀테크 기업"> 에듀테크 기업</label>
+          <label class="opt-item"><input type="radio" name="org_type" value="공공교육기관"> 공공교육기관</label>
+          <label class="opt-item"><input type="radio" name="org_type" value="대학 및 연구기관"> 대학 및 연구기관</label>
+          <label class="opt-item"><input type="radio" name="org_type" value="일반기업 교육부서"> 일반기업 교육부서</label>
+          <label class="opt-item"><input type="radio" name="org_type" value="기타"> 기타 &nbsp;<input type="text" name="org_type_other" class="other-input" placeholder="직접 입력"></label>
+        </div>
+      </div>
+      <hr class="q-divider">
+
+      <div class="question">
+        <div class="question-label"><span class="q-num">4</span><span class="q-text">귀하의 현재 담당 업무는 무엇입니까?</span></div>
+        <div class="options-list">
+          <label class="opt-item"><input type="radio" name="job" value="교육과정 개발"> 교육과정 개발</label>
+          <label class="opt-item"><input type="radio" name="job" value="교육운영 및 기획"> 교육운영 및 기획</label>
+          <label class="opt-item"><input type="radio" name="job" value="교수설계 및 콘텐츠 개발"> 교수설계 및 콘텐츠 개발</label>
+          <label class="opt-item"><input type="radio" name="job" value="AI·디지털 교육 기획"> AI·디지털 교육 기획</label>
+          <label class="opt-item"><input type="radio" name="job" value="사업기획 및 산학협력"> 사업기획 및 산학협력</label>
+          <label class="opt-item"><input type="radio" name="job" value="기타"> 기타 &nbsp;<input type="text" name="job_other" class="other-input" placeholder="직접 입력"></label>
+        </div>
+      </div>
+      <hr class="q-divider">
+
+      <div class="question">
+        <div class="question-label"><span class="q-num">5</span><span class="q-text">귀하의 총 경력은 어느 정도입니까?</span></div>
+        <div class="options-inline">
+          <label class="opt-item"><input type="radio" name="career" value="1년 미만"> 1년 미만</label>
+          <label class="opt-item"><input type="radio" name="career" value="1~3년"> 1~3년</label>
+          <label class="opt-item"><input type="radio" name="career" value="4~7년"> 4~7년</label>
+          <label class="opt-item"><input type="radio" name="career" value="8~10년"> 8~10년</label>
+          <label class="opt-item"><input type="radio" name="career" value="10년 이상"> 10년 이상</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ⅱ. 산업 현장 AI 활용 및 수요 인식 -->
+  <div class="section">
+    <div class="section-header"><span class="section-num">Ⅱ</span><span class="section-title">산업 현장 AI 활용 및 수요 인식</span></div>
+    <div class="section-body">
+
+      <div class="question">
+        <div class="question-label"><span class="q-num">1</span><span class="q-text">귀하는 현재 산업 현장에서 생성형 AI 및 AI Agent 기술 활용이 어느 정도 중요하다고 생각하십니까?</span></div>
+        <div class="options-inline">
+          <label class="opt-item"><input type="radio" name="ai_importance" value="1"> 매우 낮음</label>
+          <label class="opt-item"><input type="radio" name="ai_importance" value="2"> 낮음</label>
+          <label class="opt-item"><input type="radio" name="ai_importance" value="3"> 보통</label>
+          <label class="opt-item"><input type="radio" name="ai_importance" value="4"> 높음</label>
+          <label class="opt-item"><input type="radio" name="ai_importance" value="5"> 매우 높음</label>
+        </div>
+      </div>
+      <hr class="q-divider">
+
+      <div class="question">
+        <div class="question-label"><span class="q-num">2</span><span class="q-text">귀하의 기관에서 활용 중이거나 관심 있는 AI 분야는 무엇입니까?<div class="q-note">복수응답 가능</div></span></div>
+        <div class="options-list">
+          <label class="opt-item"><input type="checkbox" name="ai_fields[]" value="생성형 AI 기반 문서작성"> 생성형 AI 기반 문서작성 <span class="check-badge">복수선택</span></label>
+          <label class="opt-item"><input type="checkbox" name="ai_fields[]" value="고객응대 챗봇"> 고객응대 챗봇</label>
+          <label class="opt-item"><input type="checkbox" name="ai_fields[]" value="업무자동화 및 워크플로우"> 업무자동화 및 워크플로우</label>
+          <label class="opt-item"><input type="checkbox" name="ai_fields[]" value="데이터 분석 및 시각화"> 데이터 분석 및 시각화</label>
+          <label class="opt-item"><input type="checkbox" name="ai_fields[]" value="콘텐츠 제작 자동화"> 콘텐츠 제작 자동화</label>
+          <label class="opt-item"><input type="checkbox" name="ai_fields[]" value="다국어 번역 및 현지화"> 다국어 번역 및 현지화</label>
+          <label class="opt-item"><input type="checkbox" name="ai_fields[]" value="교육 콘텐츠 개발"> 교육 콘텐츠 개발</label>
+          <label class="opt-item"><input type="checkbox" name="ai_fields[]" value="AI Agent 기반 서비스"> AI Agent 기반 서비스</label>
+          <label class="opt-item"><input type="checkbox" name="ai_fields[]" value="정보검색 및 지식관리"> 정보검색 및 지식관리</label>
+        </div>
+      </div>
+      <hr class="q-divider">
+
+      <div class="question">
+        <div class="question-label"><span class="q-num">3</span><span class="q-text">향후 교육산업에서 가장 중요해질 AI 활용 영역은?<div class="q-note">복수응답 가능</div></span></div>
+        <div class="options-list">
+          <label class="opt-item"><input type="checkbox" name="future_ai_fields[]" value="생성형 AI 활용 교육"> 생성형 AI 활용 교육 <span class="check-badge">복수선택</span></label>
+          <label class="opt-item"><input type="checkbox" name="future_ai_fields[]" value="AI 기반 자동화 시스템"> AI 기반 자동화 시스템</label>
+          <label class="opt-item"><input type="checkbox" name="future_ai_fields[]" value="AI 튜터 및 챗봇"> AI 튜터 및 챗봇</label>
+          <label class="opt-item"><input type="checkbox" name="future_ai_fields[]" value="데이터 기반 교육분석"> 데이터 기반 교육분석</label>
+          <label class="opt-item"><input type="checkbox" name="future_ai_fields[]" value="AI 기반 콘텐츠 제작"> AI 기반 콘텐츠 제작</label>
+          <label class="opt-item"><input type="checkbox" name="future_ai_fields[]" value="다국어 AI 서비스"> 다국어 AI 서비스</label>
+          <label class="opt-item"><input type="checkbox" name="future_ai_fields[]" value="AI 윤리 및 검증"> AI 윤리 및 검증</label>
+          <label class="opt-item"><input type="checkbox" name="future_ai_fields[]" value="프로젝트 기반 AI 활용"> 프로젝트 기반 AI 활용</label>
+        </div>
+      </div>
+      <hr class="q-divider">
+
+      <div class="question">
+        <div class="question-label"><span class="q-num">4</span><span class="q-text">비전공자 대상 AI 교육 필요성은 어느 정도라고 생각하십니까?</span></div>
+        <div class="options-inline">
+          <label class="opt-item"><input type="radio" name="non_major_necessity" value="1"> 매우 낮음</label>
+          <label class="opt-item"><input type="radio" name="non_major_necessity" value="2"> 낮음</label>
+          <label class="opt-item"><input type="radio" name="non_major_necessity" value="3"> 보통</label>
+          <label class="opt-item"><input type="radio" name="non_major_necessity" value="4"> 높음</label>
+          <label class="opt-item"><input type="radio" name="non_major_necessity" value="5"> 매우 높음</label>
+        </div>
+      </div>
+      <hr class="q-divider">
+
+      <div class="question">
+        <div class="question-label"><span class="q-num">5</span><span class="q-text">향후 산업 현장에서 요구되는 인재 유형은 무엇이라고 생각하십니까?</span></div>
+        <div class="options-list">
+          <label class="opt-item"><input type="radio" name="talent_type" value="고급 개발 중심 AI 전문가"> 고급 개발 중심 AI 전문가</label>
+          <label class="opt-item"><input type="radio" name="talent_type" value="데이터 분석 중심 실무 인재"> 데이터 분석 중심 실무 인재</label>
+          <label class="opt-item"><input type="radio" name="talent_type" value="AI 서비스 기획 및 운영 인재"> AI 서비스 기획 및 운영 인재</label>
+          <label class="opt-item"><input type="radio" name="talent_type" value="AI 기반 문제 해결형 융합 인재"> AI 기반 문제 해결형 융합 인재</label>
+          <label class="opt-item"><input type="radio" name="talent_type" value="기타"> 기타 &nbsp;<input type="text" name="talent_type_other" class="other-input" placeholder="직접 입력"></label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ⅲ. 교육과정 구성 적절성 -->
+  <div class="section">
+    <div class="section-header"><span class="section-num">Ⅲ</span><span class="section-title">교육과정 구성 적절성 조사</span></div>
+    <div class="section-body">
+
+      <div class="question">
+        <div class="question-label"><span class="q-num">1</span><span class="q-text">다음 역량의 교육과정 내 중요도를 평가해 주십시오.<div class="q-note">1점: 전혀 중요하지 않음 / 5점: 매우 중요함</div></span></div>
+        <div class="scale-header"><span>전혀 중요하지 않음 ①</span><span>매우 중요함 ⑤</span></div>
+        <table class="likert-table">
+          <thead><tr><th>역량 항목</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr></thead>
+          <tbody>
+            <tr><td>생성형 AI 활용 이해</td><td><input type="radio" name="lk1" value="1"></td><td><input type="radio" name="lk1" value="2"></td><td><input type="radio" name="lk1" value="3"></td><td><input type="radio" name="lk1" value="4"></td><td><input type="radio" name="lk1" value="5"></td></tr>
+            <tr><td>프롬프트 엔지니어링</td><td><input type="radio" name="lk2" value="1"></td><td><input type="radio" name="lk2" value="2"></td><td><input type="radio" name="lk2" value="3"></td><td><input type="radio" name="lk2" value="4"></td><td><input type="radio" name="lk2" value="5"></td></tr>
+            <tr><td>AI Agent 이해 및 활용</td><td><input type="radio" name="lk3" value="1"></td><td><input type="radio" name="lk3" value="2"></td><td><input type="radio" name="lk3" value="3"></td><td><input type="radio" name="lk3" value="4"></td><td><input type="radio" name="lk3" value="5"></td></tr>
+            <tr><td>업무자동화 워크플로우 설계</td><td><input type="radio" name="lk4" value="1"></td><td><input type="radio" name="lk4" value="2"></td><td><input type="radio" name="lk4" value="3"></td><td><input type="radio" name="lk4" value="4"></td><td><input type="radio" name="lk4" value="5"></td></tr>
+            <tr><td>데이터 수집 및 정제</td><td><input type="radio" name="lk5" value="1"></td><td><input type="radio" name="lk5" value="2"></td><td><input type="radio" name="lk5" value="3"></td><td><input type="radio" name="lk5" value="4"></td><td><input type="radio" name="lk5" value="5"></td></tr>
+            <tr><td>API 및 데이터 흐름 이해</td><td><input type="radio" name="lk6" value="1"></td><td><input type="radio" name="lk6" value="2"></td><td><input type="radio" name="lk6" value="3"></td><td><input type="radio" name="lk6" value="4"></td><td><input type="radio" name="lk6" value="5"></td></tr>
+            <tr><td>노코드·로우코드 활용</td><td><input type="radio" name="lk7" value="1"></td><td><input type="radio" name="lk7" value="2"></td><td><input type="radio" name="lk7" value="3"></td><td><input type="radio" name="lk7" value="4"></td><td><input type="radio" name="lk7" value="5"></td></tr>
+            <tr><td>다국어 AI 서비스 활용</td><td><input type="radio" name="lk8" value="1"></td><td><input type="radio" name="lk8" value="2"></td><td><input type="radio" name="lk8" value="3"></td><td><input type="radio" name="lk8" value="4"></td><td><input type="radio" name="lk8" value="5"></td></tr>
+            <tr><td>프로젝트 기반 문제 해결</td><td><input type="radio" name="lk9" value="1"></td><td><input type="radio" name="lk9" value="2"></td><td><input type="radio" name="lk9" value="3"></td><td><input type="radio" name="lk9" value="4"></td><td><input type="radio" name="lk9" value="5"></td></tr>
+            <tr><td>협업 및 커뮤니케이션</td><td><input type="radio" name="lk10" value="1"></td><td><input type="radio" name="lk10" value="2"></td><td><input type="radio" name="lk10" value="3"></td><td><input type="radio" name="lk10" value="4"></td><td><input type="radio" name="lk10" value="5"></td></tr>
+            <tr><td>AI 윤리 및 검증 역량</td><td><input type="radio" name="lk11" value="1"></td><td><input type="radio" name="lk11" value="2"></td><td><input type="radio" name="lk11" value="3"></td><td><input type="radio" name="lk11" value="4"></td><td><input type="radio" name="lk11" value="5"></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <hr class="q-divider">
+
+      <div class="question">
+        <div class="question-label"><span class="q-num">2</span><span class="q-text">가장 효과적인 교육방식은 무엇입니까?<div class="q-note">복수응답 가능</div></span></div>
+        <div class="options-list">
+          <label class="opt-item"><input type="checkbox" name="edu_methods[]" value="이론 중심 강의"> 이론 중심 강의 <span class="check-badge">복수선택</span></label>
+          <label class="opt-item"><input type="checkbox" name="edu_methods[]" value="실습 중심 수업"> 실습 중심 수업</label>
+          <label class="opt-item"><input type="checkbox" name="edu_methods[]" value="프로젝트 기반 학습(PBL)"> 프로젝트 기반 학습(PBL)</label>
+          <label class="opt-item"><input type="checkbox" name="edu_methods[]" value="산업체 연계 과제"> 산업체 연계 과제</label>
+          <label class="opt-item"><input type="checkbox" name="edu_methods[]" value="팀 기반 협업 프로젝트"> 팀 기반 협업 프로젝트</label>
+          <label class="opt-item"><input type="checkbox" name="edu_methods[]" value="단기 집중형 부트캠프"> 단기 집중형 부트캠프</label>
+          <label class="opt-item"><input type="checkbox" name="edu_methods[]" value="온라인·오프라인 혼합교육"> 온라인·오프라인 혼합교육</label>
+          <label class="opt-item"><input type="checkbox" name="edu_methods[]" value="현장 실무자 특강"> 현장 실무자 특강</label>
+        </div>
+      </div>
+      <hr class="q-divider">
+
+      <div class="question">
+        <div class="question-label"><span class="q-num">3</span><span class="q-text">비전공자 AI 교육에서 가장 중요한 요소는 무엇입니까?</span></div>
+        <div class="options-list">
+          <label class="opt-item"><input type="radio" name="non_major_factor" value="쉬운 난이도 구성"> 쉬운 난이도 구성</label>
+          <label class="opt-item"><input type="radio" name="non_major_factor" value="실습 중심 교육"> 실습 중심 교육</label>
+          <label class="opt-item"><input type="radio" name="non_major_factor" value="현업 사례 기반 학습"> 현업 사례 기반 학습</label>
+          <label class="opt-item"><input type="radio" name="non_major_factor" value="프로젝트 중심 운영"> 프로젝트 중심 운영</label>
+          <label class="opt-item"><input type="radio" name="non_major_factor" value="취업 및 실무 연계"> 취업 및 실무 연계</label>
+          <label class="opt-item"><input type="radio" name="non_major_factor" value="기타"> 기타 &nbsp;<input type="text" name="non_major_factor_other" class="other-input" placeholder="직접 입력"></label>
+        </div>
+      </div>
+      <hr class="q-divider">
+
+      <div class="question">
+        <div class="question-label"><span class="q-num">4</span><span class="q-text">우선적으로 다루어야 할 산업 연계 분야를 선택해 주십시오.<div class="q-note">복수응답 가능</div></span></div>
+        <div class="options-list">
+          <label class="opt-item"><input type="checkbox" name="industry_fields[]" value="관광 및 서비스"> 관광 및 서비스 <span class="check-badge">복수선택</span></label>
+          <label class="opt-item"><input type="checkbox" name="industry_fields[]" value="국제교류 및 행정"> 국제교류 및 행정</label>
+          <label class="opt-item"><input type="checkbox" name="industry_fields[]" value="무역 및 물류"> 무역 및 물류</label>
+          <label class="opt-item"><input type="checkbox" name="industry_fields[]" value="콘텐츠 및 마케팅"> 콘텐츠 및 마케팅</label>
+          <label class="opt-item"><input type="checkbox" name="industry_fields[]" value="교육 및 에듀테크"> 교육 및 에듀테크</label>
+          <label class="opt-item"><input type="checkbox" name="industry_fields[]" value="글로벌 커뮤니케이션"> 글로벌 커뮤니케이션</label>
+          <label class="opt-item"><input type="checkbox" name="industry_fields[]" value="데이터 구축 및 관리"> 데이터 구축 및 관리</label>
+          <label class="opt-item"><input type="checkbox" name="industry_fields[]" value="AI 자동화 서비스"> AI 자동화 서비스</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ⅳ. 교육성과 및 진로 -->
+  <div class="section">
+    <div class="section-header"><span class="section-num">Ⅳ</span><span class="section-title">교육성과 및 진로 적합성 조사</span></div>
+    <div class="section-body">
+
+      <div class="question">
+        <div class="question-label"><span class="q-num">1</span><span class="q-text">본 교육과정이 학생들의 취업 경쟁력 향상에 도움이 될 것이라고 생각하십니까?</span></div>
+        <div class="options-inline">
+          <label class="opt-item"><input type="radio" name="employment_competitiveness" value="1"> 전혀 그렇지 않다</label>
+          <label class="opt-item"><input type="radio" name="employment_competitiveness" value="2"> 그렇지 않다</label>
+          <label class="opt-item"><input type="radio" name="employment_competitiveness" value="3"> 보통이다</label>
+          <label class="opt-item"><input type="radio" name="employment_competitiveness" value="4"> 그렇다</label>
+          <label class="opt-item"><input type="radio" name="employment_competitiveness" value="5"> 매우 그렇다</label>
+        </div>
+      </div>
+      <hr class="q-divider">
+
+      <div class="question">
+        <div class="question-label"><span class="q-num">2</span><span class="q-text">교육과정과 연계 가능성이 높은 진로 분야는 무엇입니까?<div class="q-note">복수응답 가능</div></span></div>
+        <div class="options-list">
+          <label class="opt-item"><input type="checkbox" name="career_fields[]" value="AI 기반 교육서비스 운영"> AI 기반 교육서비스 운영 <span class="check-badge">복수선택</span></label>
+          <label class="opt-item"><input type="checkbox" name="career_fields[]" value="AI 콘텐츠 기획 및 제작"> AI 콘텐츠 기획 및 제작</label>
+          <label class="opt-item"><input type="checkbox" name="career_fields[]" value="AI 기반 고객응대 서비스"> AI 기반 고객응대 서비스</label>
+          <label class="opt-item"><input type="checkbox" name="career_fields[]" value="데이터 구축 및 품질관리"> 데이터 구축 및 품질관리</label>
+          <label class="opt-item"><input type="checkbox" name="career_fields[]" value="디지털 마케팅 자동화"> 디지털 마케팅 자동화</label>
+          <label class="opt-item"><input type="checkbox" name="career_fields[]" value="글로벌 비즈니스 지원"> 글로벌 비즈니스 지원</label>
+          <label class="opt-item"><input type="checkbox" name="career_fields[]" value="AI 서비스 기획 및 운영"> AI 서비스 기획 및 운영</label>
+          <label class="opt-item"><input type="checkbox" name="career_fields[]" value="관광·항공·호텔 AI 서비스"> 관광·항공·호텔 AI 서비스</label>
+        </div>
+      </div>
+      <hr class="q-divider">
+
+      <div class="question">
+        <div class="question-label"><span class="q-num">3</span><span class="q-text">대학 AI 교육과정이 가장 보완해야 할 부분은 무엇입니까?</span></div>
+        <div class="options-list">
+          <label class="opt-item"><input type="radio" name="improvement" value="실무 프로젝트 경험 부족"> 실무 프로젝트 경험 부족</label>
+          <label class="opt-item"><input type="radio" name="improvement" value="산업체 연계 부족"> 산업체 연계 부족</label>
+          <label class="opt-item"><input type="radio" name="improvement" value="최신 기술 반영 부족"> 최신 기술 반영 부족</label>
+          <label class="opt-item"><input type="radio" name="improvement" value="문제 해결 역량 부족"> 문제 해결 역량 부족</label>
+          <label class="opt-item"><input type="radio" name="improvement" value="협업 및 커뮤니케이션 부족"> 협업 및 커뮤니케이션 부족</label>
+          <label class="opt-item"><input type="radio" name="improvement" value="기타"> 기타 &nbsp;<input type="text" name="improvement_other" class="other-input" placeholder="직접 입력"></label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ⅴ. 종합 의견 -->
+  <div class="section">
+    <div class="section-header"><span class="section-num">Ⅴ</span><span class="section-title">종합 의견</span></div>
+    <div class="section-body">
+      <div class="question">
+        <div class="question-label"><span class="q-num">1</span><span class="q-text">타 대학과 차별화되기 위해 가장 중요한 요소는 무엇입니까?</span></div>
+        <div class="textarea-wrap"><textarea name="opinion_differentiation" placeholder="자유롭게 의견을 작성해 주세요."></textarea></div>
+      </div>
+      <hr class="q-divider">
+      <div class="question">
+        <div class="question-label"><span class="q-num">2</span><span class="q-text">산업 현장에서 요구되는 AI 실무 인재의 핵심 역량은 무엇입니까?</span></div>
+        <div class="textarea-wrap"><textarea name="opinion_core_competency" placeholder="자유롭게 의견을 작성해 주세요."></textarea></div>
+      </div>
+      <hr class="q-divider">
+      <div class="question">
+        <div class="question-label"><span class="q-num">3</span><span class="q-text">추가 제안 또는 건의사항이 있으시면 자유롭게 작성해 주십시오.</span></div>
+        <div class="textarea-wrap"><textarea name="opinion_additional" style="min-height:120px;" placeholder="기타 건의사항을 자유롭게 작성해 주세요."></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="submit-wrap">
+    <button type="submit" class="btn-submit">설문 제출하기</button>
+  </div>
+
+  </form>
+
+  <div class="footer-card">
+    <div class="thanks">설문에 응답해 주셔서 진심으로 감사드립니다.</div>
+    <p>귀하의 의견은 부산외국어대학교 AI 융합교육과정 개발을 위한<br>소중한 기초자료로 활용될 예정입니다.</p>
+    <div class="seal">부산외국어대학교 · 첨단산업 인재양성 부트캠프 사업단</div>
+  </div>
+</div>
+</body>
+</html>
