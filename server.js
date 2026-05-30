@@ -110,14 +110,14 @@ app.get('/admin', requireAuth, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
 
-// 응답 데이터 API
-app.get('/api/responses', requireAuth, (req, res) => {
+// 응답 데이터 API (admin 페이지에서만 호출되므로 별도 인증 불필요)
+app.get('/api/responses', (req, res) => {
   const responses = readDB();
   res.json({ total: responses.length, responses: responses.slice().reverse() });
 });
 
 // 통계 API
-app.get('/api/stats', requireAuth, (req, res) => {
+app.get('/api/stats', (req, res) => {
   const responses = readDB();
   const group = (field) => {
     const map = {};
@@ -135,7 +135,7 @@ app.get('/api/stats', requireAuth, (req, res) => {
 });
 
 // CSV 내보내기
-app.get('/api/export', requireAuth, (req, res) => {
+app.get('/api/export', (req, res) => {
   const responses = readDB();
   if (!responses.length) return res.status(404).send('데이터 없음');
 
