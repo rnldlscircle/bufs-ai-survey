@@ -82,10 +82,21 @@ const LABELS = {
   lk10:'협업·커뮤니케이션', lk11:'AI 윤리·검증'
 };
 
+function getAuthHeader() {
+  const stored = sessionStorage.getItem('admin_auth');
+  if (stored) return { 'Authorization': 'Basic ' + stored };
+  const pass = prompt('관리자 비밀번호를 입력하세요:');
+  if (!pass) return {};
+  const encoded = btoa('admin:' + pass);
+  sessionStorage.setItem('admin_auth', encoded);
+  return { 'Authorization': 'Basic ' + encoded };
+}
+
 async function loadData() {
+  const headers = getAuthHeader();
   try {
     const [statsRes, respRes] = await Promise.all([
-      fetch('/api/stats'), fetch('/api/responses')
+      fetch('/api/stats', { headers }), fetch('/api/responses', { headers })
     ]);
     const stats = await statsRes.json();
     const data = await respRes.json();
@@ -214,7 +225,15 @@ function renderTable(responses) {
 }
 
 function exportCSV() {
-  window.location.href = '/api/export';
+  const stored = sessionStorage.getItem('admin_auth');
+  const auth = stored ? 'Basic ' + stored : 'Basic ' + btoa('admin:bufs2025!');
+  fetch('/api/export', { headers: { 'Authorization': auth } })
+    .then(r => r.blob()).then(blob => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'survey_responses.csv';
+      a.click();
+    });
 }
 
 loadData();
