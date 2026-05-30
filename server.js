@@ -106,6 +106,12 @@ app.post('/submit', (req, res) => {
 });
 
 // 관리자 페이지
+// 전체 응답 초기화 (관리자 전용)
+app.delete('/api/responses', requireAuth, (req, res) => {
+  writeDB([]);
+  res.json({ result: 'cleared' });
+});
+
 app.get('/admin', requireAuth, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
