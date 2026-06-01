@@ -21,7 +21,6 @@ function writeDB(data) {
   fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2), 'utf8');
 }
 
-// 서버 시작 시 응답이 없으면 시드 데이터로 자동 복원
 function seedIfEmpty() {
   const responses = readDB();
   if (responses.length === 0 && fs.existsSync(SEED_FILE)) {
@@ -132,18 +131,38 @@ app.get('/api/responses', (req, res) => {
 
 app.get('/api/stats', (req, res) => {
   const responses = readDB();
+
   const group = (field) => {
     const map = {};
     responses.forEach(r => { const v = r[field]||'미응답'; map[v] = (map[v]||0)+1; });
-    return Object.entries(map).map(([k,v]) => ({[field]:k, count:v}));
+    return Object.entries(map).map(([k,v]) => ({key:k, count:v})).sort((a,b)=>b.count-a.count);
   };
+
+  const groupMulti = (field) => {
+    const map = {};
+    responses.forEach(r => {
+      const vals = (r[field] || '').split(',').map(v => v.trim()).filter(Boolean);
+      if (vals.length === 0) { map['미응답'] = (map['미응답']||0)+1; return; }
+      vals.forEach(v => { map[v] = (map[v]||0)+1; });
+    });
+    return Object.entries(map).map(([k,v]) => ({key:k, count:v})).sort((a,b)=>b.count-a.count);
+  };
+
   res.json({
     total: responses.length,
     byGender: group('gender'),
     byAge: group('age_group'),
     byOrg: group('org_type'),
     byCareer: group('career'),
-    byAiImportance: group('ai_importance')
+    byAiImportance: group('ai_importance'),
+    byNonMajorNecessity: group('non_major_necessity'),
+    byTalentType: group('talent_type'),
+    byEmploymentCompetitiveness: group('employment_competitiveness'),
+    byNonMajorFactor: group('non_major_factor'),
+    byEduMethods: groupMulti('edu_methods'),
+    byAiFields: groupMulti('ai_fields'),
+    byIndustryFields: groupMulti('industry_fields'),
+    byCareerFields: groupMulti('career_fields'),
   });
 });
 
