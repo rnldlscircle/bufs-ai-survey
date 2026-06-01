@@ -8,8 +8,8 @@ const ADMIN_USER = process.env.ADMIN_USER || 'admin';
 const ADMIN_PASS = process.env.ADMIN_PASS || 'bufs2025!';
 const DATA_DIR = process.env.DATA_DIR || __dirname;
 const DB_FILE = path.join(DATA_DIR, 'responses.json');
+const SEED_FILE = path.join(__dirname, 'seed-data.json');
 
-// JSON DB 초기화
 function readDB() {
   try {
     if (!fs.existsSync(DB_FILE)) return [];
@@ -21,10 +21,23 @@ function writeDB(data) {
   fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2), 'utf8');
 }
 
+// 서버 시작 시 응답이 없으면 시드 데이터로 자동 복원
+function seedIfEmpty() {
+  const responses = readDB();
+  if (responses.length === 0 && fs.existsSync(SEED_FILE)) {
+    try {
+      const seed = JSON.parse(fs.readFileSync(SEED_FILE, 'utf8'));
+      writeDB(seed);
+      console.log(`시드 데이터 ${seed.length}개 자동 복원됨`);
+    } catch (e) {
+      console.error('시드 데이터 복원 실패:', e.message);
+    }
+  }
+}
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Basic Auth 미들웨어
 function requireAuth(req, res, next) {
   const auth = req.headers['authorization'];
   if (!auth || !auth.startsWith('Basic ')) {
@@ -37,12 +50,10 @@ function requireAuth(req, res, next) {
   return res.status(401).send('아이디 또는 비밀번호가 올바르지 않습니다.');
 }
 
-// 설문 페이지
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'survey.html'));
 });
 
-// 제출 처리
 app.post('/submit', (req, res) => {
   const b = req.body;
   const arr = (v) => (Array.isArray(v) ? v.join(', ') : v || '');
@@ -105,8 +116,6 @@ app.post('/submit', (req, res) => {
 </body></html>`);
 });
 
-// 관리자 페이지
-// 전체 응답 초기화 (관리자 전용)
 app.delete('/api/responses', requireAuth, (req, res) => {
   writeDB([]);
   res.json({ result: 'cleared' });
@@ -116,13 +125,11 @@ app.get('/admin', requireAuth, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
 
-// 응답 데이터 API (admin 페이지에서만 호출되므로 별도 인증 불필요)
 app.get('/api/responses', (req, res) => {
   const responses = readDB();
   res.json({ total: responses.length, responses: responses.slice().reverse() });
 });
 
-// 통계 API
 app.get('/api/stats', (req, res) => {
   const responses = readDB();
   const group = (field) => {
@@ -140,7 +147,6 @@ app.get('/api/stats', (req, res) => {
   });
 });
 
-// CSV 내보내기
 app.get('/api/export', (req, res) => {
   const responses = readDB();
   if (!responses.length) return res.status(404).send('데이터 없음');
@@ -156,6 +162,8 @@ app.get('/api/export', (req, res) => {
   res.setHeader('Content-Disposition', `attachment; filename="survey_${new Date().toISOString().slice(0,10)}.csv"`);
   res.send('﻿' + csv);
 });
+
+seedIfEmpty();
 
 app.listen(PORT, () => {
   console.log(`서버 실행 중: http://localhost:${PORT}`);
