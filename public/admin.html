@@ -24,12 +24,13 @@
   .stat-card.green .stat-num{color:var(--green)}
   .stat-card.gold .stat-num{color:#92700a}
   .stat-label{font-size:12px;color:var(--muted);margin-top:6px}
-  .panel{background:var(--card);border-radius:var(--radius);box-shadow:0 2px 8px rgba(0,0,0,0.06);margin-bottom:24px;overflow:hidden}
+  .section-title{font-size:15px;font-weight:700;color:var(--primary);margin:28px 0 12px;padding-bottom:6px;border-bottom:2px solid var(--border)}
+  .panel{background:var(--card);border-radius:var(--radius);box-shadow:0 2px 8px rgba(0,0,0,0.06);margin-bottom:20px;overflow:hidden}
   .panel-header{background:var(--primary);color:white;padding:14px 20px;font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px}
   .panel-body{padding:20px}
-  .chart-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-bottom:24px}
+  .chart-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-bottom:4px}
   .bar-item{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:13px}
-  .bar-label{min-width:100px;color:var(--muted);flex-shrink:0}
+  .bar-label{min-width:120px;color:var(--muted);flex-shrink:0;font-size:12px}
   .bar-track{flex:1;background:#eef2f8;border-radius:6px;height:20px;overflow:hidden}
   .bar-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--primary-light));border-radius:6px;transition:width .6s ease;display:flex;align-items:center;padding-left:6px;font-size:11px;color:white;font-weight:600;white-space:nowrap}
   .bar-count{min-width:28px;text-align:right;font-weight:600;color:var(--primary)}
@@ -62,7 +63,7 @@
     <div class="loading">데이터 불러오는 중...</div>
   </div>
 
-  <div class="chart-grid" id="charts"></div>
+  <div id="charts"></div>
 
   <div class="panel">
     <div class="panel-header">📋 전체 응답 목록</div>
@@ -154,17 +155,15 @@ function bar(label, count, max) {
   </div>`;
 }
 
-function chartPanel(title, items) {
+function chartPanel(icon, title, items) {
   const max = Math.max(...items.map(i => i.count), 1);
   return `<div class="panel">
-    <div class="panel-header">${title}</div>
+    <div class="panel-header">${icon} ${title}</div>
     <div class="panel-body">${items.map(i => bar(i.key, i.count, max)).join('')}</div>
   </div>`;
 }
 
 function renderCharts(stats, data) {
-  const map = (arr, keyField) => arr.map(r => ({key: r[keyField]||'미응답', count: r.count}));
-
   // Likert 평균
   const likertItems = Object.entries(LABELS).map(([k, label]) => {
     const vals = data.responses.map(r => parseFloat(r[k])).filter(v => !isNaN(v));
@@ -182,12 +181,44 @@ function renderCharts(stats, data) {
     </div>`;
   }).join('');
 
-  document.getElementById('charts').innerHTML =
-    chartPanel('성별 분포', map(stats.byGender, 'gender')) +
-    chartPanel('연령대 분포', map(stats.byAge, 'age_group')) +
-    chartPanel('기관 유형', map(stats.byOrg, 'org_type')) +
-    chartPanel('경력 분포', map(stats.byCareer, 'career')) +
-    `<div class="panel"><div class="panel-header">역량 중요도 평균 (5점 기준)</div><div class="panel-body">${likertBars}</div></div>`;
+  document.getElementById('charts').innerHTML = `
+    <div class="section-title">👤 응답자 기본 현황</div>
+    <div class="chart-grid">
+      ${chartPanel('⚥', '성별 분포', stats.byGender)}
+      ${chartPanel('🎂', '연령대 분포', stats.byAge)}
+      ${chartPanel('🏢', '기관 유형', stats.byOrg)}
+      ${chartPanel('💼', '경력 분포', stats.byCareer)}
+    </div>
+
+    <div class="section-title">🤖 AI 인식 및 수요</div>
+    <div class="chart-grid">
+      ${chartPanel('⭐', 'AI 기술 중요도', stats.byAiImportance)}
+      ${chartPanel('📌', 'AI 활용 주요 분야 (복수응답)', stats.byAiFields)}
+    </div>
+
+    <div class="section-title">🎓 비전공자 AI 교육</div>
+    <div class="chart-grid">
+      ${chartPanel('✅', 'AI 교육 필요성', stats.byNonMajorNecessity)}
+      ${chartPanel('🔑', '교육 선택 핵심 요소', stats.byNonMajorFactor)}
+      ${chartPanel('👤', '양성 인재 유형', stats.byTalentType)}
+    </div>
+
+    <div class="section-title">📚 교육과정 구성</div>
+    <div class="chart-grid">
+      ${chartPanel('🏫', '가장 효과적인 교육방식 (복수응답)', stats.byEduMethods)}
+    </div>
+    <div class="panel">
+      <div class="panel-header">📈 역량 중요도 평균 (5점 기준)</div>
+      <div class="panel-body">${likertBars}</div>
+    </div>
+
+    <div class="section-title">🚀 진로 및 취업</div>
+    <div class="chart-grid">
+      ${chartPanel('🏭', 'AI 활용 주요 산업분야 (복수응답)', stats.byIndustryFields)}
+      ${chartPanel('💡', '연계 가능한 직무/역할 (복수응답)', stats.byCareerFields)}
+      ${chartPanel('🏆', '취업 경쟁력', stats.byEmploymentCompetitiveness)}
+    </div>
+  `;
 }
 
 function renderTable(responses) {
@@ -200,7 +231,7 @@ function renderTable(responses) {
   const val = v => v || '-';
   const dt = v => v ? v.replace('T',' ').slice(0,16) : '-';
 
-  const rows = responses.map((r, i) => `
+  const rows = responses.map((r) => `
     <tr>
       <td><span class="badge badge-new">#${r.id}</span></td>
       <td>${dt(r.submitted_at)}</td>
@@ -208,9 +239,10 @@ function renderTable(responses) {
       <td>${val(r.age_group)}</td>
       <td>${val(r.org_type)}</td>
       <td>${val(r.career)}</td>
-      <td>${val(r.ai_importance) !== '-' ? '★'.repeat(parseInt(r.ai_importance)||0) : '-'}</td>
+      <td>${val(r.ai_importance)}</td>
       <td><div class="tag-list">${tags(r.ai_fields)}</div></td>
-      <td>${r.lk1||'-'} / ${r.lk2||'-'} / ${r.lk3||'-'}</td>
+      <td><div class="tag-list">${tags(r.edu_methods)}</div></td>
+      <td>${val(r.non_major_factor)}</td>
       <td style="max-width:160px">${val(r.opinion_additional)}</td>
     </tr>`).join('');
 
@@ -218,7 +250,7 @@ function renderTable(responses) {
     <table class="resp-table">
       <thead><tr>
         <th>No.</th><th>제출일시</th><th>성별</th><th>연령</th><th>기관</th>
-        <th>경력</th><th>AI중요도</th><th>AI활용분야</th><th>역량(1/2/3)</th><th>추가의견</th>
+        <th>경력</th><th>AI중요도</th><th>AI활용분야</th><th>교육방식</th><th>교육핵심요소</th><th>추가의견</th>
       </tr></thead>
       <tbody>${rows}</tbody>
     </table>`;
@@ -237,7 +269,7 @@ function exportCSV() {
 }
 
 loadData();
-setInterval(loadData, 60000); // 1분마다 자동 갱신
+setInterval(loadData, 60000);
 </script>
 </body>
 </html>
