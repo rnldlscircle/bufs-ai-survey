@@ -163,6 +163,14 @@ function chartPanel(icon, title, items) {
   </div>`;
 }
 
+// 5점 척도 숫자 → 한국어 라벨 변환
+const SCALE5 = {'1':'매우 낮음','2':'낮음','3':'보통','4':'높음','5':'매우 높음'};
+const AGREE5 = {'1':'전혀 그렇지 않다','2':'그렇지 않다','3':'보통이다','4':'그렇다','5':'매우 그렇다'};
+
+function mapKeys(arr, map) {
+  return arr.map(r => ({ key: map[r.key] || r.key, count: r.count }));
+}
+
 function renderCharts(stats, data) {
   // Likert 평균
   const likertItems = Object.entries(LABELS).map(([k, label]) => {
@@ -192,13 +200,13 @@ function renderCharts(stats, data) {
 
     <div class="section-title">🤖 AI 인식 및 수요</div>
     <div class="chart-grid">
-      ${chartPanel('⭐', 'AI 기술 중요도', stats.byAiImportance)}
+      ${chartPanel('⭐', 'AI 기술 중요도', mapKeys(stats.byAiImportance, SCALE5))}
       ${chartPanel('📌', 'AI 활용 주요 분야 (복수응답)', stats.byAiFields)}
     </div>
 
     <div class="section-title">🎓 비전공자 AI 교육</div>
     <div class="chart-grid">
-      ${chartPanel('✅', 'AI 교육 필요성', stats.byNonMajorNecessity)}
+      ${chartPanel('✅', 'AI 교육 필요성', mapKeys(stats.byNonMajorNecessity, SCALE5))}
       ${chartPanel('🔑', '교육 선택 핵심 요소', stats.byNonMajorFactor)}
       ${chartPanel('👤', '양성 인재 유형', stats.byTalentType)}
     </div>
@@ -216,7 +224,7 @@ function renderCharts(stats, data) {
     <div class="chart-grid">
       ${chartPanel('🏭', 'AI 활용 주요 산업분야 (복수응답)', stats.byIndustryFields)}
       ${chartPanel('💡', '연계 가능한 직무/역할 (복수응답)', stats.byCareerFields)}
-      ${chartPanel('🏆', '취업 경쟁력', stats.byEmploymentCompetitiveness)}
+      ${chartPanel('🏆', '취업 경쟁력', mapKeys(stats.byEmploymentCompetitiveness, AGREE5))}
     </div>
   `;
 }
